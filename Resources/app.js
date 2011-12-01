@@ -25,6 +25,9 @@ var barcodeLabel = Titanium.UI.createLabel({
 
 win1.add(barcodeLabel);
 
+var scrollableView = Titanium.UI.createScrollableView();
+var layerView = Titanium.UI.createView();
+
 var barcodeButton = Titanium.UI.createButton({
     title: 'Scan barcode',
     top: 200
@@ -35,6 +38,7 @@ barcodeButton.addEventListener('click', function (e) {
         success: function (data) {
           if(data && data.barcode) {
             barcodeLabel.text = 'Barcode:' + data.barcode;
+            alert('Barcode: ' + data.barcode);
           } else {
             alert(JSON.stringify(data));
           }
@@ -51,7 +55,9 @@ barcodeButton.addEventListener('click', function (e) {
 
   });
 
-win1.add(barcodeButton);
+win1.add(scrollableView);
+scrollableView.views = [layerView];
+layerView.add(barcodeButton);
 
 var win2 = Ti.UI.createWindow({
     backgroundColor:'black'
